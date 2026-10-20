@@ -1,0 +1,25 @@
+# Systemspezifisch – gehört nicht ins Git
+conf/
+state/
+logs/
+vorbereitung/
+
+# Geheimnisse – niemals einchecken
+*.pem
+*.key
+secrets/
+web-users.json
+teams-webhook
+checkmk-download
+cmk-secret
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Editor / System
+.DS_Store
+.idea/
+.vscode/
+*.swp

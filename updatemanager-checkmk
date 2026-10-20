@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""Startpunkt: updatemanager-checkmk [Befehl] – ohne Befehl startet das Menue."""
+import os
+import sys
+from pathlib import Path
+
+HERE = Path(os.path.realpath(__file__)).parent
+os.environ.setdefault("UMC_HOME", str(HERE))
+sys.path.insert(0, str(HERE))
+
+from umc.cli import main  # noqa: E402
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
