@@ -669,18 +669,6 @@ class Repo:
             t = vparse(found)
         return res
 
-    def _expected_hash(self, ver, name):
-        try:
-            with self._open(f"{DL_BASE}/{ver}/HASHES", timeout=20) as r:
-                text = r.read().decode(errors="replace")
-        except (urllib.error.URLError, OSError):
-            return None
-        for line in text.splitlines():
-            parts = line.split()
-            if len(parts) >= 2 and parts[-1].lstrip("*") == name and re.fullmatch(r"[0-9a-f]{64}", parts[0]):
-                return parts[0]
-        return None
-
     def download(self, ver, name, p):
         dest = self.cmk_dir / p["id"] / name
         if dest.exists():
@@ -690,12 +678,7 @@ class Repo:
             self.log.info(dim(f"[DRY-RUN] Download {url}"))
             return None
         dest.parent.mkdir(parents=True, exist_ok=True)
-        expected = self._expected_hash(ver, name)
-        if not expected and self.cfg["checkmk"].get("require_hash"):
-            self.log.err("Keine Pruefsumme gefunden – Download abgebrochen (Pruefsumme ist Pflicht)")
-            return None
         part = dest.with_name(name + ".part")
-        h = hashlib.sha256()
         self.log.info(f"Lade {url}")
         try:
             with self._open(url, timeout=60) as r, open(part, "wb") as f:
@@ -703,7 +686,6 @@ class Repo:
                 done, nextp = 0, 25
                 while chunk := r.read(1 << 20):
                     f.write(chunk)
-                    h.update(chunk)
                     done += len(chunk)
                     if total and done * 100 // total >= nextp:
                         self.log.info(f"  {nextp} %")
@@ -712,12 +694,27 @@ class Repo:
             part.unlink(missing_ok=True)
             self.log.err(f"Download fehlgeschlagen: {e}")
             return None
-        if expected and h.hexdigest() != expected:
-            part.unlink()
-            self.log.err("Pruefsumme stimmt nicht – Datei verworfen")
-            return None
-        part.rename(dest)
-        self.log.ok("  fertig, Pruefsumme OK" if expected else "  fertig (keine Pruefsumme vom Hersteller)")
+        if self.cfg["checkmk"].get("verify_signature", True):
+            from .cmksig import SigError, Verifier
+
+            def fetch(u):
+                with self._open(u, timeout=30) as r:
+                    return r.read()
+            try:
+                key = Verifier(self.cfg, fetch, self.log).verify(part, DL_BASE)
+            except SigError as e:
+                part.unlink(missing_ok=True)
+                self.log.err(f"  Signaturpruefung fehlgeschlagen – Paket verworfen: {e}")
+                return None
+            except Exception as e:      # z. B. gpg fehlt / kaputtes Archiv
+                part.unlink(missing_ok=True)
+                self.log.err(f"  Signaturpruefung nicht moeglich – Paket verworfen: {e}")
+                return None
+            part.rename(dest)
+            self.log.ok(f"  fertig, Signatur von Checkmk geprueft (Schluessel {key[-16:]})")
+        else:
+            part.rename(dest)
+            self.log.warn("  fertig – OHNE Signaturpruefung (abgeschaltet)")
         return dest
 
     def add_package(self, p, path):

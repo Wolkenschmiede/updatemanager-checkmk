@@ -25,7 +25,7 @@
   <text x="50" y="138" font-size="10" fill="#4b52a0">Update-Server · eine Linux-VM (Repo + Steuerung)</text>
 
   <rect class="box" x="60" y="150" width="170" height="46" stroke="#7b83c9"/><text class="t" x="145" y="170">Spiegel</text><text class="s" x="145" y="185">OS-Quellen · aptly / dnf-reposync</text>
-  <rect class="box" x="250" y="150" width="170" height="46" stroke="#7b83c9"/><text class="t" x="335" y="170">Checkmk-Repo</text><text class="s" x="335" y="185">Pakete pro OS · SHA256 geprüft</text>
+  <rect class="box" x="250" y="150" width="170" height="46" stroke="#7b83c9"/><text class="t" x="335" y="170">Checkmk-Repo</text><text class="s" x="335" y="185">Pakete pro OS · Signatur geprüft</text>
   <rect class="box" x="60" y="225" width="360" height="40" stroke="#7b83c9"/><text class="t" x="240" y="242">Snapshot</text><text class="s" x="240" y="256">datiert · letzte 8 als Rückfallebene</text>
   <rect x="60" y="295" width="360" height="40" rx="6" fill="#fdf0d8" stroke="#d9a441"/><text class="t" x="240" y="312">Veröffentlicht · automatisch</text><text class="s" x="240" y="326">GPG-signiert · nginx</text>
   <rect class="box" x="60" y="360" width="360" height="40" stroke="#7b83c9"/><text class="t" x="240" y="377">Aufräumen</text><text class="s" x="240" y="391">Checkmk-Pakete löschen, sobald keine Site sie braucht</text>

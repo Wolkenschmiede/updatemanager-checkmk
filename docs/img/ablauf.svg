@@ -83,7 +83,7 @@
 <rect x="27.0" y="582.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
 <text x="115" y="598.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Neues Checkmk-Release</text>
 <text x="115" y="614.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">erkannt, ins Repo geladen,</text>
-<text x="115" y="630.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">SHA256 geprüft</text>
+<text x="115" y="630.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Signatur geprüft</text>
 <path d="M335,568.0 L413.0,610 L335,652.0 L257.0,610 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
 <text x="335" y="606.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Neue Major-</text>
 <text x="335" y="621.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Version?</text>

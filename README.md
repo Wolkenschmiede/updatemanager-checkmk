@@ -55,7 +55,7 @@ updatemanager-checkmk macht daraus einen automatischen, nachvollziehbaren Ablauf
   per SSH ermittelt. Kein Agent, keine Skripte, keine Zugangsdaten auf den Zielsystemen.
 - 📦 **Eigenes Repository je OS** – Ubuntu, Debian, RHEL/Rocky/Alma/Oracle/CentOS Stream, SLES/openSUSE.
   Datierte Snapshots als Rückfallebene, GPG-signiert, ausgeliefert per nginx.
-- 🚀 **Checkmk-Patch- und Major-Updates** – Neue Releases werden täglich erkannt, per SHA256 geprüft und ins Repo geladen.
+- 🚀 **Checkmk-Patch- und Major-Updates** – Neue Releases werden täglich erkannt, anhand der GPG-Signatur von Checkmk geprüft und ins Repo geladen.
   Major-Schritte nur mit Regelprüfung (eine Version pro Schritt, vorher neuester Patch, Paket für jedes OS vorhanden, passende Edition).
 - ⚡ **Parallel** – Alle Kunden werden gleichzeitig aktualisiert (einstellbar), der Master als Letztes.
 - 🛟 **Sicher** – Vorprüfung (SSH, sudo, Tunnel, Uhrzeit, Site), `omd update` ohne `-f`, Backup und automatischer Rollback.

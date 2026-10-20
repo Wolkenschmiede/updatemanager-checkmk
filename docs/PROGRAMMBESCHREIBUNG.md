@@ -62,7 +62,7 @@ Der **Repo-Sync** läuft täglich zur eingestellten Uhrzeit (Standard 05:30, bis
 ### Checkmk
 
 1. Der Repo-Sync prüft im Checkmk-Downloadportal, ob ein neues Release verfügbar ist. Vor dem Checkmk-Schritt im Wartungsfenster wird erneut geprüft, falls die letzte Prüfung älter als 6 Stunden ist.
-2. Neue Pakete werden für jedes verwendete OS heruntergeladen, gegen die SHA256-Prüfsummen von Checkmk geprüft und ins Checkmk-Repo aufgenommen.
+2. Neue Pakete werden für jedes verwendete OS heruntergeladen, anhand der GPG-Signatur von Checkmk geprüft (offizieller Checkmk-Schlüssel, Fingerabdruck fest hinterlegt) und ins Checkmk-Repo aufgenommen. Pakete ohne gültige Signatur werden verworfen und gemeldet.
 3. Patch-Releases werden automatisch zur neuen Zielversion.
 4. Major-Releases werden ebenfalls geladen und – sofern die Regeln erfüllt sind – im Wartungsfenster ausgerollt (siehe Kapitel 6).
 5. Fehlschläge beim Sync oder Download werden per Teams gemeldet.

@@ -1152,7 +1152,7 @@ function setCheckmk(st) {
       { k: "auto_rollback", l: "Bei Fehler automatisch auf das Backup zurückrollen", t: "bool" },
       { k: "repo_cleanup", l: "Checkmk-Pakete automatisch aus dem Repo löschen, sobald keine Site sie mehr braucht", t: "bool" },
       { k: "omd_cleanup", l: "Nach erfolgreichem Update alte Checkmk-Versionen auf den Systemen entfernen", t: "bool", hint: "omd cleanup – entfernt nur Versionen, die keine Site nutzt" },
-      { k: "require_hash", l: "Download nur mit Prüfsumme des Herstellers", t: "bool" },
+      { k: "verify_signature", l: "Nur Pakete mit gültiger Checkmk-Signatur annehmen (empfohlen)", t: "bool" },
     ], c),
     secretLine("Download-Zugang für kommerzielle Editionen", st.secrets.download, "download", "Zugang zum Checkmk-Downloadportal im Format user:passwort.", "user:passwort"));
 }

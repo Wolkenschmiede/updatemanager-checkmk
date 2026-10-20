@@ -57,7 +57,8 @@ DEFAULTS = {
         "edition": "community",
         "auto_patch": True,
         "credentials_file": str(SECRETS_DIR / "checkmk-download"),
-        "require_hash": False,
+        "verify_signature": True,        # Checkmk-Pakete nur mit gueltiger Checkmk-Signatur (GnuPG)
+        "signing_fprs": [],              # erlaubte Schluessel; leer = offizieller Checkmk-Schluessel
         "backup": "no-past",             # full | no-past | none
         "keep_backups": 3,
         "auto_rollback": True,
@@ -131,6 +132,7 @@ def load():
 
 def migrate(cfg):
     """Aeltere Konfigurationen (nur Ubuntu, Version 0.1) in OS-Profile umwandeln."""
+    cfg["checkmk"].pop("require_hash", None)      # bis 0.4.5: durch die Signaturpruefung ersetzt
     r = cfg["repo"]
     legacy = {k: r.pop(k) for k in ("ubuntu_mirror", "dists", "components", "codename") if k in r}
     if legacy.get("codename") and not cfg["os_profiles"]:

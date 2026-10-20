@@ -568,7 +568,7 @@ EXTRA = {
 }
 EDITABLE = {"checkmk", "schedule", "updates", "ssh", "repo", "notify"}
 READONLY = {("notify", "teams_webhook_file"), ("checkmk", "credentials_file"), ("ssh", "key"), ("repo", "root"),
-            ("notify", "checkmk_localcheck")}
+            ("notify", "checkmk_localcheck"), ("checkmk", "signing_fprs")}
 
 
 def apply_settings(cfg, section, data):

@@ -8,6 +8,9 @@
 - Checkliste „Einrichtung abschließen“ im Hauptmenü (`e`), in der Weboberfläche und als Befehl `checklist`
 - Neuer Kunde (Menü 2 → n): anlegen, vorbereiten, testen und erfassen in einem Durchgang; bei fehlenden
   Paketen für ein neues Betriebssystem wird der Repo-Sync direkt angeboten
+- Checkmk-Pakete werden anhand der GPG-Signatur von Checkmk geprüft (.deb: Signatur und alle Paketteile,
+  .rpm: rpmkeys); Pakete ohne gültige Signatur werden verworfen. Ersetzt die bisherige Prüfsummen-Option,
+  die mangels Prüfsummen-Datei beim Hersteller nie griff bzw. mit „Pflicht“ jeden Download blockierte
 - `-h` zeigt eine Kurzhilfe mit Einrichtung und Erweiterung, `--help` das Handbuch
 - Handbuch: Kapitel „Später erweitern: Kunden und Master“; Skripte zum Entfernen und Zurücksetzen (`tools/`)
 

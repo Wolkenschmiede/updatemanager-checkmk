@@ -233,7 +233,8 @@ def edit_checkmk(cfg):
         print(dim("  Unabhaengig davon gilt immer: erst neuester Patch des alten Zweigs, nur ein Zweig pro Lauf."))
         raw = ask("Mindest-Patchstaende", cur, required=False, validate=_v_minpatch)
         ck["min_patch"] = dict(x.strip().split("=", 1) for x in raw.split(",") if "=" in x)
-    ck["require_hash"] = ask_yes("Download nur mit Hersteller-Pruefsumme erlauben?", ck["require_hash"])
+    ck["verify_signature"] = ask_yes("Checkmk-Pakete nur mit gueltiger Checkmk-Signatur annehmen (empfohlen)?",
+                                     ck.get("verify_signature", True))
     ck["backup"] = ask_choice("Backup der Site vor dem Update", [
         ("no-past", "Konfiguration ohne Messdaten-Historie (schnell, empfohlen)"),
         ("full", "Komplett inkl. Historie (langsam, gross)"),
@@ -412,7 +413,7 @@ def system_setup(cfg, log):
     print(dim("  Fuer Kunden mit RHEL/Rocky/Alma/Oracle/SUSE braucht der Update-Server dnf und createrepo_c."))
     if ask_yes("RPM-Werkzeuge installieren?", has_rpm):
         log.info(bold("> RPM-Werkzeuge installieren (dnf, dnf-plugins-core, createrepo-c)"))
-        if run(["sudo", "apt-get", "-q", "-y", "install", "dnf", "dnf-plugins-core", "createrepo-c"],
+        if run(["sudo", "apt-get", "-q", "-y", "install", "dnf", "dnf-plugins-core", "createrepo-c", "rpm"],
                interactive=True)[0]:
             log.warn("RPM-Werkzeuge konnten nicht installiert werden – rpm-Spiegel stehen dann nicht zur Verfuegung")
 

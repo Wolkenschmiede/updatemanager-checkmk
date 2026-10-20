@@ -456,7 +456,7 @@ Fensterende übrig sind, wird kein neues System mehr begonnen. Laufende Updates 
 
 **Täglicher Repo-Sync** (Standard 05:30):
 Er erfasst alle Systeme, sucht neue Checkmk-Patches **und** Major-Versionen (alle neueren Zweige),
-lädt sie für jedes vorkommende Betriebssystem ins Repo (mit Herstellerprüfsumme, soweit vorhanden)
+lädt sie für jedes vorkommende Betriebssystem ins Repo (nur mit gültiger GPG-Signatur von Checkmk)
 und spiegelt die OS-Pakete. Installiert wird dabei nichts.
 Dabei entsteht jedes Mal ein datierter Repo-Stand (Snapshot), der für einen Rollback erhalten bleibt.
 
@@ -507,6 +507,24 @@ nicht an echten Systemen geprüft.
 
 **Zurück auf eine ältere Version** (Downgrade) unterstützt Checkmk nur eingeschränkt. Der Weg zurück ist das
 Backup der Site, das vor jedem Update angelegt wird (`~svc-update/updatemanager-backups/`, die letzten 3 je Site).
+
+---
+
+## Signaturprüfung der Checkmk-Pakete
+
+Checkmk signiert seine Pakete mit dem *Check_MK Software Release Signing Key*. Jedes heruntergeladene Paket
+wird geprüft, bevor es ins Repo kommt:
+
+- **.deb:** Die Signatur im Paket (`_gpgbuilder`) muss gültig sein, **und** jeder Teil des Pakets muss zu der
+  signierten Liste passen. Ein verändertes oder zusätzlich eingeschleustes Teil fällt auf.
+- **.rpm:** Die eingebettete RPM-Signatur wird mit `rpmkeys` geprüft (Paket `rpm`, installiert über Menü **9 → 2**).
+- Der öffentliche Schlüssel wird beim ersten Mal von download.checkmk.com geladen und nur akzeptiert, wenn sein
+  Fingerabdruck stimmt: `B1E7 1065 75B7 23F0 0611 C612 434D AC48 C450 3261` (laut Checkmk-Doku).
+- Schlägt die Prüfung fehl, wird das Paket verworfen, im Log und per Teams gemeldet – die Systeme bleiben auf
+  ihrer Version.
+- Wechselt Checkmk irgendwann den Schlüssel: den neuen Fingerabdruck auf checkmk.com prüfen und in
+  `conf/config.json` unter `checkmk.signing_fprs` eintragen (Liste, mehrere erlaubt).
+- Abschalten (nur für Tests): Menü **6 → 8** bzw. Einstellungen in der Weboberfläche.
 
 ---
 
@@ -783,7 +801,7 @@ Danach neu installieren wie im Schnellstart beschrieben.
 - `svc-update` hat nur sudo auf `apt-get`, `omd` und `reboot` und meldet sich nur per Schlüssel an.
   Hinweis: `omd` und `apt-get` sind trotzdem mächtig. Der Schutz liegt vor allem am Schlüssel.
 - Die Satelliten öffnen **keine** Verbindung nach außen. Der Tunnel besteht nur während eines Laufs.
-- Das Repo ist mit einem eigenen GPG-Schlüssel signiert, Checkmk-Pakete werden per Herstellerprüfsumme geprüft.
+- Das Repo ist mit einem eigenen GPG-Schlüssel signiert, Checkmk-Pakete werden nur mit gültiger GPG-Signatur von Checkmk angenommen (siehe „Signaturprüfung der Checkmk-Pakete“).
 - Secrets liegen nur in `~/.config/updatemanager-checkmk/` (Rechte 600), nie in `conf/` oder im Git.
 
 ---
