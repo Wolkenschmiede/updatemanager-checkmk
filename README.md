@@ -197,6 +197,7 @@ Rückmeldungen aus anderen Umgebungen sind sehr willkommen – gern als Issue.
 |---|---|
 | [docs/HILFE.md](docs/HILFE.md) | Handbuch: Einrichtung, Master und Kunden vorbereiten, Befehle, Weboberfläche, Fehlerbehebung |
 | [docs/PROGRAMMBESCHREIBUNG.md](docs/PROGRAMMBESCHREIBUNG.md) | Konzept: Grundprinzipien, Architektur, Abläufe, Rechte |
+| [tools/](tools/) | Skripte zum Entfernen und vollständigen Zurücksetzen (siehe Handbuch) |
 | [CHANGELOG.md](CHANGELOG.md) | Änderungen je Version |
 
 ## Lizenz und Hinweise

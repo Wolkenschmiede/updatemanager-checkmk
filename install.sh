@@ -16,7 +16,7 @@ command -v python3 >/dev/null || sudo apt-get install -y python3
 sudo mkdir -p "$TARGET"
 if [ "$SRC" != "$TARGET" ]; then
   # Nur Programmdateien kopieren – conf/, logs/, state/ nicht ueberschreiben
-  sudo cp -r "$SRC/umc" "$SRC/docs" "$SRC/updatemanager-checkmk" "$SRC/install.sh" "$SRC/README.md" "$TARGET/"
+  sudo cp -r "$SRC/umc" "$SRC/docs" "$SRC/tools" "$SRC/updatemanager-checkmk" "$SRC/install.sh" "$SRC/README.md" "$TARGET/"
   [ -f "$SRC/.gitignore" ] && sudo cp "$SRC/.gitignore" "$TARGET/"
   sudo rm -rf "$TARGET/umc/__pycache__"
 fi

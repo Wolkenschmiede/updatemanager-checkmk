@@ -725,6 +725,30 @@ Firewall des Update-Servers nur für das NOC-Netz öffnen.
 
 ---
 
+## Entfernen und komplett zurücksetzen
+
+Im Ordner `tools/` liegen zwei Skripte, die alles rückgängig machen – etwa um eine Testumgebung neu aufzusetzen
+oder das Programm zu deinstallieren. Checkmk und die Sites selbst bleiben unverändert.
+
+1. **Auf jedem vorbereiteten System** (Kunden-VMs und Master):
+   ```bash
+   sudo bash entfernen-system.sh
+   ```
+   Holt die ursprünglichen Paketquellen zurück, entfernt `svc-update` (samt Home und Site-Backups darin),
+   die sudo-Regel und den Repo-Schlüssel, schaltet automatische Updates wieder ein und setzt die Zeitquelle zurück.
+2. **Im Checkmk-Master** (Weboberfläche): den Automation-User `svc-update` löschen, bei Bedarf auch den Host des
+   Masters aus Phase 4 → **Activate changes**.
+3. **Auf dem Update-Server** (als normaler Benutzer):
+   ```bash
+   bash /opt/updatemanager-checkmk/tools/entfernen-update-server.sh
+   ```
+   Löscht Programm, Einstellungen, Zustand, Logs, Geheimnisse, SSH- und Repo-Schlüssel, Repo-Daten, Zeitplan,
+   Weboberfläche und nginx-Seite. Bietet an, die Teams-Webhook-Adresse vorher zu sichern und aptly/nginx zu deinstallieren.
+
+Danach neu installieren wie im Schnellstart beschrieben.
+
+---
+
 ## Sicherheit
 
 - Der Update-Server ist ein **hochprivilegiertes System**: Er kann auf allen Satelliten Pakete installieren
