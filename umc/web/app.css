@@ -473,3 +473,12 @@ dialog.wide { width: min(780px, calc(100vw - 32px)); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------------------------------------------------------------- Einrichtung abschliessen */
+.setup-panel { margin-bottom: 18px; border-color: var(--amber); }
+.setup-panel .panel-head { gap: 12px; }
+.setup-bar { height: 4px; background: var(--line); margin: 0 18px 4px; border-radius: 2px; overflow: hidden; }
+.setup-fill { display: block; height: 100%; width: 0; background: var(--ok); transition: width .4s ease; }
+.setup-panel .list > li { align-items: center; }
+.setup-panel .list .btn { flex: none; }
+.setup-foot { padding: 10px 18px 14px; border-top: 1px solid var(--line); }

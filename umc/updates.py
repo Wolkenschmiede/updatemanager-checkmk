@@ -290,6 +290,10 @@ class Updater:
                 else:
                     results[t["name"]] = (True, label + "alles in Ordnung")
         self.summary("Vorpruefung", results)
+        if not self.dry:          # fuer die Checkliste "Einrichtung abschliessen"
+            stamp_ = now().isoformat(timespec="seconds")
+            update_state(lambda s: s.setdefault("preflight", {}).update(
+                {n: {"time": stamp_, "ok": r[0] is not False, "msg": r[1]} for n, r in results.items()}))
         return all(r[0] is not False for r in results.values())
 
     # ============================================================ OS-Update

@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.4.4-46C8A8">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.4.5-46C8A8">
   <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white">
   <img alt="Abhängigkeiten" src="https://img.shields.io/badge/abh%C3%A4ngigkeiten-keine-46C8A8">
   <img alt="Checkmk" src="https://img.shields.io/badge/Checkmk-2.x-F0B24A">
@@ -142,31 +142,39 @@ Hell und dunkel, mit eigenen Benutzern.
 - Checkmk 2.x – Community oder kommerzielle Edition (für kommerzielle Editionen: Download-Zugang zum Kundenportal)
 - Ein Automationsbenutzer auf dem Master (REST-API, Recht auf Downtimes)
 
-**Installation**
+**Vorher bereitlegen:** IP und Site-Name des Masters, einen Automation-User mit Secret im Master,
+je Kunden-VM die IP, den Namen der Remote Site und einen Admin-Login mit sudo.
+
+**Installation und Einrichtung – in einem Durchgang**
 
 ```bash
 git clone https://github.com/Wolkenschmiede/updatemanager-checkmk.git
 cd updatemanager-checkmk
 ./install.sh                     # installiert nach /opt/updatemanager-checkmk
-updatemanager-checkmk            # erster Start: Einrichtungsassistent, danach das Menü
+updatemanager-checkmk            # Einrichtungsassistent
 ```
 
-Der Assistent fragt Repo, Tunnel, SSH, Master, Checkmk, Wartungsfenster und Kunden ab und richtet auf Wunsch den
-Update-Server ein (Pakete, nginx, GPG-Schlüssel, NTP). Für Master und Kunden erzeugt er ein Vorbereitungs-Skript,
-das Service-Benutzer, SSH-Schlüssel, sudo-Regeln und Paketquellen einrichtet.
+Der Assistent fragt die Einstellungen ab und erledigt danach alles, damit die Updates sofort automatisch laufen:
 
-**Danach**
+1. Update-Server einrichten (aptly, nginx, Repo-Schlüssel, optional Zeitquelle)
+2. REST-API des Masters prüfen
+3. Master und Kunden vorbereiten – per Admin-Login der jeweiligen VM
+4. Repo synchronisieren
+5. Verbindung zu allen Systemen testen
+6. Zeitplan aktivieren – optional Weboberfläche und Teams
 
-```bash
-updatemanager-checkmk inventory      # alle Systeme erfassen
-updatemanager-checkmk check          # Vorprüfung: SSH, sudo, Tunnel, Uhrzeit
-updatemanager-checkmk repo-sync      # Repo aktualisieren, neue Checkmk-Releases laden
-updatemanager-checkmk status         # Versionen und geplante Schritte
-updatemanager-checkmk web on         # Weboberfläche einschalten (optional)
-```
+Jeder Schritt lässt sich überspringen. Was offen ist, zeigt die **Checkliste** im Menü (`e`), in der Weboberfläche
+und per `updatemanager-checkmk checklist`.
 
-Den Zeitplan aktivierst du im Menü unter **Zeitplan → aktivieren**. Alle Befehle und Optionen:
-`updatemanager-checkmk --help` oder das [Handbuch](docs/HILFE.md).
+**Später erweitern**
+
+| Aufgabe | Menü |
+|---|---|
+| Neuen Kunden anbinden (anlegen, vorbereiten, testen) | `2 → n` |
+| Master ändern | `3 → 1` |
+| Was fehlt noch? | `e` |
+
+Alle Befehle: `updatemanager-checkmk -h` · Handbuch: `updatemanager-checkmk --help` bzw. [docs/HILFE.md](docs/HILFE.md).
 
 ## Sicherheit
 

@@ -24,7 +24,7 @@ import time
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
 
-from . import VERSION, config, setup
+from . import VERSION, config, onboarding, setup
 from .cmkapi import CheckmkAPI
 from .common import (DOCS_DIR, LOG_DIR, SECRETS_DIR, STATE_DIR, WEEKDAYS, Log, expand, green, load_state,
                      now, parse_weekdays, red, run, sudo_write, tznow, update_state, vbase, weekdays_de, yellow)
@@ -436,6 +436,7 @@ def overview(cfg):
     allv = ([master] if master else []) + customers
     win, inside = _next_window(cfg["schedule"])
     chk = st.get("checkmk_check") or {}
+    ts = setup.timer_state()
     return {
         "version": VERSION, "host": socket.gethostname(),
         "master": master, "customers": customers,
@@ -460,7 +461,8 @@ def overview(cfg):
                  "last_sync": st.get("last_sync")},
         "external_run": _ext_lock_held(),
         "lab": bool(cfg.get("lab", {}).get("enabled")),
-        "timers": {"state": setup.timer_state()},
+        "timers": {"state": ts},
+        "setup": onboarding.checklist(cfg, timer_state=ts or ""),
     }
 
 

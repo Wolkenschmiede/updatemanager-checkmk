@@ -64,11 +64,10 @@ def _ts(entry):
     return f"{t} {sym}"
 
 
-def _run_logged(ctx, kind, fn, confirm=None):
-    """Fuehrt einen Lauf mit Logdatei und Sperre aus."""
-    if confirm and not ctx.dry and not ask_yes(confirm, False):
-        return
+def run_job(ctx, kind, fn):
+    """Fuehrt einen Lauf mit Logdatei und Sperre aus. Liefert True bei Erfolg."""
     log, remote, api, repo, upd = ctx.tools(kind)
+    ok = False
     try:
         with run_lock():
             ok = fn(log, remote, api, repo, upd)
@@ -81,6 +80,14 @@ def _run_logged(ctx, kind, fn, confirm=None):
         print(red(str(e)))
     finally:
         log.close()
+    return bool(ok)
+
+
+def _run_logged(ctx, kind, fn, confirm=None):
+    """Wie run_job, mit optionaler Rueckfrage und Pause danach (fuer das Menue)."""
+    if confirm and not ctx.dry and not ask_yes(confirm, False):
+        return
+    run_job(ctx, kind, fn)
     pause()
 
 
@@ -168,7 +175,8 @@ def customers_menu(ctx):
               [[i, c["name"], c["host"], c["site"] or "–", c["checkmk_host"] or "–",
                 green("aktiv") if c.get("enabled", True) else yellow("deaktiviert")]
                for i, c in enumerate(cs, 1)])
-        print(f"\n  {bold('n')}) Neuen Kunden anlegen" + (f"   {bold('1-' + str(len(cs)))}) Kunde auswaehlen" if cs else "")
+        sel = ("1" if len(cs) == 1 else f"1-{len(cs)}")
+        print(f"\n  {bold('n')}) Neuen Kunden anlegen" + (f"   {bold(sel)}) Kunde auswaehlen" if cs else "")
               + f"   {bold('0')}) Zurueck")
         k = ask("Auswahl", validate=lambda s: None if s.lower() in ("n", "0") or (s.isdigit() and 1 <= int(s) <= len(cs))
                 else "Ungueltige Auswahl").lower()
@@ -178,8 +186,15 @@ def customers_menu(ctx):
             c = setup.edit_customer(ctx.cfg)
             ctx.save()
             print(green(f"Kunde {c['name']} angelegt."))
-            if ask_yes("Kunde jetzt vorbereiten (svc-update, Paketquellen, ...)?", True):
-                prepare_dialog(ctx, c)
+            from . import onboarding
+            onboarding.forget(c["name"])
+            if ask_yes("Kunde jetzt vorbereiten und testen (svc-update, Paketquellen, Verbindung)?", True):
+                if onboarding.onboard_target(ctx, c, "Kunde"):
+                    print(green(f"\nKunde {c['name']} ist eingerichtet und wird ab jetzt automatisch aktualisiert."))
+                pause()
+            else:
+                print(dim(f"  Spaeter: Menue 2 -> {c['name']} -> 4 (Vorbereiten)."))
+                pause()
         else:
             customer_menu(ctx, cs[int(k) - 1])
 
@@ -201,8 +216,12 @@ def customer_menu(ctx, c):
         if k is None:
             return
         if k == "1":
+            before = (c["host"], c.get("ssh_port"), c.get("jumphost"))
             setup.edit_customer(ctx.cfg, c)
             ctx.save()
+            if before != (c["host"], c.get("ssh_port"), c.get("jumphost")):
+                from . import onboarding
+                onboarding.forget(c["name"])
         elif k == "2":
             c["enabled"] = not c.get("enabled", True)
             ctx.save()
@@ -222,6 +241,11 @@ def customer_menu(ctx, c):
             if ask_yes(f"Kunde {c['name']} wirklich loeschen (nur aus der Konfiguration)?", False):
                 ctx.cfg["customers"].remove(c)
                 ctx.save()
+                from . import onboarding
+                onboarding.forget(c["name"])
+                print(dim("  Auf der VM bleibt die Vorbereitung bestehen. Rueckgaengig machen: tools/entfernen-system.sh "
+                          "(siehe Hilfe, Kapitel 'Entfernen und komplett zuruecksetzen')."))
+                pause()
                 return
 
 
@@ -232,7 +256,7 @@ def prepare_dialog(ctx, t):
         ("2", "Automatisch per Admin-Login ausfuehren (scp + sudo)"),
     ], info=["Richtet auf dem Zielsystem ein: svc-update-User + Schluessel, sudo-Regeln,",
              "Repo-Schluessel, Paketquellen ueber Tunnel, NTP, Abschalten der Auto-Updates.",
-             "Details: updatemanager-checkmk --help (Abschnitt 'Einmalige Schritte')"])
+             "Details: updatemanager-checkmk --help (Kapitel 'Neuen Kunden einrichten')"])
     if k == "1":
         p = setup.prepare_script(ctx.cfg, t, log)
         if p:
@@ -266,8 +290,12 @@ def master_menu(ctx):
         if k is None:
             return
         if k == "1":
+            before = (m.get("host"), m.get("ssh_port"), m.get("jumphost"))
             setup.edit_master(ctx.cfg)
             ctx.save()
+            if before != (m.get("host"), m.get("ssh_port"), m.get("jumphost")):
+                from . import onboarding
+                onboarding.forget(m.get("name"))
             pause()
         elif k == "2":
             setup.test_api(ctx.cfg)
@@ -704,6 +732,24 @@ def edition_dialog(ctx):
                 f"Jetzt alle Sites von {ck['edition']} auf {new} {ver} umstellen?")
 
 
+def teams_setup(ctx):
+    """Teams-Kanal einrichten (auch aus 'Einrichtung abschliessen' aufgerufen)."""
+    from .notify import Notifier
+    n = ctx.cfg["notify"]
+    print(dim("  Webhook-URL aus Teams: Kanal -> ... -> Workflows -> 'Beim Empfang einer Webhookanforderung"))
+    print(dim("  in einem Kanal posten'. Details: Hilfe, Kapitel 'Benachrichtigungen'."))
+    setup.store_secret(n["teams_webhook_file"], "Webhook-URL (Eingabe unsichtbar)")
+    n["teams"] = True
+    n["mode"] = "always" if ask_yes("Nach JEDEM Lauf melden? (nein = nur bei Fehlern/Hinweisen)",
+                                    n["mode"] == "always") else "problems"
+    n["manual_runs"] = ask_yes("Auch Laeufe melden, die im Menue gestartet werden?", n.get("manual_runs", False))
+    ctx.save()
+    if ask_yes("Jetzt eine Testnachricht senden?", True):
+        ok, err = Notifier(ctx.cfg, Log(), ctx.dry).send("Testnachricht von updatemanager-checkmk", "ok",
+                                                         ["Die Teams-Benachrichtigung ist eingerichtet."])
+        print(green("  Gesendet – bitte im Teams-Kanal pruefen.") if ok else red(f"  Fehler: {err}"))
+
+
 def notify_menu(ctx):
     from .notify import LOCAL_CHECK_PATH, LOCAL_CHECK_SCRIPT, Notifier, localcheck_lines
     while True:
@@ -725,18 +771,7 @@ def notify_menu(ctx):
         if k is None:
             return
         if k == "1":
-            print(dim("  Webhook-URL aus Teams: Kanal -> ... -> Workflows -> 'Beim Empfang einer Webhookanforderung"))
-            print(dim("  in einem Kanal posten'. Details: Hilfe, Kapitel 'Benachrichtigungen'."))
-            setup.store_secret(n["teams_webhook_file"], "Webhook-URL (Eingabe unsichtbar)")
-            n["teams"] = True
-            n["mode"] = "always" if ask_yes("Nach JEDEM Lauf melden? (nein = nur bei Fehlern/Hinweisen)",
-                                            n["mode"] == "always") else "problems"
-            n["manual_runs"] = ask_yes("Auch Laeufe melden, die im Menue gestartet werden?", n.get("manual_runs", False))
-            ctx.save()
-            if ask_yes("Jetzt eine Testnachricht senden?", True):
-                ok, err = nt.send("Testnachricht von updatemanager-checkmk", "ok",
-                                  ["Die Teams-Benachrichtigung ist eingerichtet."])
-                print(green("  Gesendet – bitte im Teams-Kanal pruefen.") if ok else red(f"  Fehler: {err}"))
+            teams_setup(ctx)
             pause()
         elif k == "2":
             ok, err = nt.send("Testnachricht von updatemanager-checkmk", "ok", ["Die Teams-Benachrichtigung funktioniert."])
@@ -821,8 +856,15 @@ def main_menu(ctx, show_help):
                 f"Kunden: {act} aktiv / {len(cfg['customers'])}",
                 f"Wartungsfenster: {weekdays_de(s['weekdays'])} {s['start']}-{s['end']}"
                 + (yellow("   TESTMODUS (Dry-Run) AKTIV") if ctx.dry else "")]
+        from . import onboarding
         try:
-            k = _main_choice(ctx, info)
+            n_open = len(onboarding.open_items(cfg))
+        except Exception:
+            n_open = 0
+        if n_open:
+            info.append(red(f"Einrichtung unvollstaendig: {n_open} Punkt{'e' if n_open > 1 else ''} offen  ->  e"))
+        try:
+            k = _main_choice(ctx, info, n_open)
         except Abort:
             return 0
         try:
@@ -831,7 +873,9 @@ def main_menu(ctx, show_help):
             {"1": status_view, "2": customers_menu, "3": master_menu, "4": schedule_menu,
              "5": ssh_menu, "6": repo_menu, "7": updates_menu, "8": logs_menu,
              "9": system_menu, "b": notify_menu, "w": web_menu, "l": lab_menu}.get(k, lambda c: None)(ctx)
-            if k == "t":
+            if k == "e":
+                setup_menu(ctx)
+            elif k == "t":
                 ctx.dry = not ctx.dry
             elif k == "h":
                 help_menu()
@@ -906,8 +950,27 @@ def help_menu():
             helpview.show(secs[int(k) - 1][1])
 
 
-def _main_choice(ctx, info):
+def setup_menu(ctx):
+    from . import onboarding
+    while True:
+        complete = onboarding.print_checklist(ctx.cfg)
+        k = menu("Einrichtung", [
+            ("1", "Offene Schritte jetzt erledigen (gefuehrt)"),
+            ("2", "Checkliste neu pruefen (Verbindung zu allen Systemen testen)"),
+        ], info=[green("Alles erledigt.") if complete else "Jeder Schritt laesst sich einzeln ueberspringen."])
+        if k is None:
+            return
+        if k == "1":
+            onboarding.finish(ctx)
+            pause()
+        elif k == "2":
+            setup.test_api(ctx.cfg)
+            run_job(ctx, None, lambda lg, r, a, rp, u: u.check_all())
+
+
+def _main_choice(ctx, info, n_open=0):
     return menu("updatemanager-checkmk – Hauptmenue", [
+        *([("e", red(f"Einrichtung abschliessen ({n_open} offen)")), (None, None)] if n_open else []),
         ("1", "Status-Uebersicht"),
         ("2", "Kunden verwalten (neu, bearbeiten, vorbereiten, testen)"),
         ("3", "Master bearbeiten"),
@@ -923,4 +986,5 @@ def _main_choice(ctx, info):
         ("l", "Labor: Testsysteme auf alten Stand zuruecksetzen" + (red("  [AN]") if ctx.cfg.get("lab", {}).get("enabled") else "")),
         ("t", f"Testmodus (Dry-Run) {'ausschalten' if ctx.dry else 'einschalten'}"),
         ("h", "Hilfe"),
+        *([] if n_open else [("e", dim("Einrichtung / Checkliste"))]),
     ], back="Beenden", info=info)

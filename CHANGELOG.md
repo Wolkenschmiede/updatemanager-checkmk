@@ -1,6 +1,17 @@
 # Änderungen
 
-## 0.4.4 – erste öffentliche Version
+## 0.4.5
+
+- Einrichtung in einem Durchgang: Nach den Einstellungen erledigt der Assistent Update-Server, REST-API-Test,
+  Vorbereitung von Master und Kunden (per Admin-Login), ersten Repo-Sync, Verbindungstest und Zeitplan –
+  optional Weboberfläche und Teams
+- Checkliste „Einrichtung abschließen“ im Hauptmenü (`e`), in der Weboberfläche und als Befehl `checklist`
+- Neuer Kunde (Menü 2 → n): anlegen, vorbereiten, testen und erfassen in einem Durchgang; bei fehlenden
+  Paketen für ein neues Betriebssystem wird der Repo-Sync direkt angeboten
+- `-h` zeigt eine Kurzhilfe mit Einrichtung und Erweiterung, `--help` das Handbuch
+- Handbuch: Kapitel „Später erweitern: Kunden und Master“; Skripte zum Entfernen und Zurücksetzen (`tools/`)
+
+## 0.4.4
 
 - Weboberfläche (optional): Übersicht, Verbindungen, Repository, Läufe mit Live-Ausgabe und Abbrechen,
   Zeitplan, Einstellungen, Hilfe, Labormodus; hell und dunkel; eigene Benutzer, HTTPS optional

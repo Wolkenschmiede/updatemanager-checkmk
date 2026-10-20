@@ -29,21 +29,46 @@ unter `127.0.0.1:3142` erreichbar. Außerhalb eines Laufs gibt es diese Verbindu
 ## Schnellstart
 
 ```bash
-tar xzf updatemanager-checkmk-*.tar.gz && cd updatemanager-checkmk && ./install.sh
+git clone https://github.com/Wolkenschmiede/updatemanager-checkmk.git
+cd updatemanager-checkmk && ./install.sh
 updatemanager-checkmk            # erster Start: Einrichtungsassistent
 ```
 
-Reihenfolge beim ersten Mal:
+**Vorher bereitlegen:** IP und Site-Name des Masters, ein Automation-User mit Secret im Master
+(siehe „Checkmk-Master vorbereiten“, Phase 2), je VM die IP, den Namen der Remote Site und einen
+Admin-Login (Benutzer mit sudo-Recht).
 
-1. **Assistent** durchlaufen. Er fragt Repo und Tunnel, SSH, Master, Checkmk, Wartungsfenster und Kunden ab
-   und richtet danach optional den Update-Server ein (Pakete, nginx, GPG, NTP).
-2. **Master vorbereiten:** siehe „Anleitung: Checkmk-Master vorbereiten“.
-3. **Kunden einrichten:** siehe „Anleitung: Neuen Kunden einrichten (VM + Remote Site)“.
-4. **Systeme erfassen** und **Repo synchronisieren:** Menü 6 → 2, danach 6 → 1.
-   Dabei werden Betriebssysteme erkannt und pro OS-Version automatisch Spiegel angelegt.
-5. **Vorprüfung:** Menü 7 → 1. Alle Systeme müssen „OK“ zeigen.
-6. **Testlauf im Testmodus:** Hauptmenü `t`, danach Menü 7 → 4. Es wird nur angezeigt, was passieren würde.
-7. **Zeitplan aktivieren:** Menü 4 → 2.
+Der Assistent erledigt alles in **einem Durchgang**:
+
+1. **Einstellungen:** Repo und Tunnel, SSH, Master, Checkmk, Wartungsfenster, Kunden.
+2. **Einrichtung abschließen** – jeder Schritt wird angeboten und lässt sich überspringen:
+   1. Update-Server einrichten (aptly, nginx, Repo-Schlüssel, optional Zeitquelle)
+   2. REST-API des Masters prüfen
+   3. Master und jeden Kunden vorbereiten – per Admin-Login der jeweiligen VM
+   4. Repo synchronisieren (beim ersten Mal einige Minuten)
+   5. Verbindung zu allen Systemen testen
+   6. Zeitplan aktivieren
+   7. optional Weboberfläche und Teams
+
+Danach laufen die Updates automatisch. Was übersprungen wurde oder fehlschlug, zeigt die **Checkliste**:
+im Hauptmenü unter **e** (mit „Offene Schritte jetzt erledigen“), in der Weboberfläche oben auf der Übersicht
+und mit `updatemanager-checkmk checklist`.
+
+Kurzhilfe mit allen Befehlen: `updatemanager-checkmk -h` · diese Hilfe: `updatemanager-checkmk --help`
+
+## Später erweitern: Kunden und Master
+
+| Aufgabe | So geht's |
+|---|---|
+| **Neuen Kunden anbinden** | Menü **2 → n**: anlegen, vorbereiten (Admin-Login der VM), Verbindung testen, erfassen – in einem Durchgang. Fehlen dem Repo noch Pakete für ein neues Betriebssystem, bietet das Programm den Repo-Sync direkt an. Vorher im Master die Remote Site verbinden (siehe „Neuen Kunden einrichten“). |
+| Kunde später vorbereiten | Menü **2 → Kunde → 4** (automatisch per Admin-Login oder Skript zum Kopieren) |
+| Kunde ändern (IP, Port …) | Menü **2 → Kunde → 1**, danach **3** (Verbindung testen) |
+| Kunde vorübergehend aussetzen | Menü **2 → Kunde → 2** (deaktivieren) |
+| Kunde entfernen | Menü **2 → Kunde → 9**, auf der VM `tools/entfernen-system.sh` (siehe „Entfernen und komplett zurücksetzen“) |
+| Master ändern | Menü **3 → 1**; ist es eine neue VM: **3 → 4** (vorbereiten) und **3 → 3** (testen) |
+| Was fehlt noch? | Menü **e** oder `updatemanager-checkmk checklist` |
+
+Neu angelegte Systeme werden automatisch in den nächsten Repo-Sync und das nächste Wartungsfenster aufgenommen.
 
 ---
 
@@ -73,17 +98,19 @@ Der Update-Server hält das Repo und steuert alle Updates. Er steht im NOC.
 
 ### Phase 2 – Programm installieren und einrichten
 
-1. Paket kopieren und installieren:
+1. Programm holen und installieren:
    ```bash
-   tar xzf updatemanager-checkmk-*.tar.gz && cd updatemanager-checkmk && ./install.sh
+   git clone https://github.com/Wolkenschmiede/updatemanager-checkmk.git
+   cd updatemanager-checkmk && ./install.sh
    updatemanager-checkmk
    ```
 2. Der **Assistent** fragt Repo/Tunnel, SSH-Schlüssel, Master (inkl. Automation-Secret – siehe
    „Anleitung: Checkmk-Master vorbereiten“), Checkmk-Edition, Wartungsfenster und Kunden ab.
-3. Am Ende **„Update-Server einrichten“** mit Ja beantworten (installiert aptly, nginx, GPG-Schlüssel,
-   optional RPM-Werkzeuge und Zeitquelle). Später jederzeit über Menü **9 → 2** wiederholbar.
-4. Prüfen: Menü **9 → 1** – alles sollte „OK“ sein, bis auf Punkte, die erst nach dem ersten Repo-Sync grün werden.
-5. Wenn Master und Kunden eingerichtet sind: Menü **4 → 2** aktiviert den Zeitplan.
+3. Danach folgt **„Einrichtung abschließen“**: Update-Server einrichten (aptly, nginx, GPG-Schlüssel,
+   optional Zeitquelle), Master und Kunden vorbereiten, Repo synchronisieren, Verbindung testen, Zeitplan aktivieren.
+   Jeder Schritt lässt sich überspringen und später im Hauptmenü unter **e** nachholen.
+4. Einzelne Teile lassen sich jederzeit wiederholen: Update-Server **9 → 2**, Prüfung **9 → 1**,
+   Zeitplan **4 → 2**.
 
 ## Anleitung: Checkmk-Master vorbereiten
 
@@ -784,7 +811,7 @@ Protokolle: `/opt/updatemanager-checkmk/logs/` (Menü 8) · Timer: `systemctl li
 
 ---
 
-## Grenzen (Stand 0.4.4)
+## Grenzen (Stand 0.4.5)
 
 - **OS-Release-Upgrades** (z. B. Ubuntu 22.04 → 24.04) bleiben manuell.
 - Debian, EL-Familie und SUSE sind eingebaut, aber noch nicht an echten Systemen getestet.

@@ -12,6 +12,17 @@ USAGE = """Aufruf: updatemanager-checkmk [Befehl] [Optionen]
 
 Ohne Befehl startet das Menue (beim ersten Start der Einrichtungsassistent).
 
+Erste Einrichtung (alles in einem Durchgang):
+  updatemanager-checkmk  ->  Assistent fragt Einstellungen ab und erledigt danach der Reihe nach:
+  Update-Server einrichten, REST-API pruefen, Master und Kunden vorbereiten (Admin-Login der VMs),
+  Repo synchronisieren, Verbindung testen, Zeitplan aktivieren. Was uebersprungen wurde, steht im
+  Hauptmenue unter 'e' (Checkliste) und laesst sich dort nachholen.
+
+Spaeter erweitern:
+  Neuer Kunde     Menue 2 -> n   (anlegen, vorbereiten, testen – in einem Durchgang)
+  Master aendern  Menue 3 -> 1   (danach 3 -> 4 vorbereiten, falls neue VM)
+  Was fehlt noch? updatemanager-checkmk checklist   bzw. Menue e
+
 Befehle:
   status                 Status-Uebersicht
   check                  Vorpruefung aller Systeme (SSH, sudo, Zeit, Tunnel, Platz)
@@ -35,7 +46,8 @@ Befehle:
   web on|off|status      Weboberflaeche ein-/ausschalten (siehe Hilfe)
   web passwd [BENUTZER]  Benutzer fuer die Weboberflaeche anlegen / Passwort aendern
   web tls                Zertifikat fuer HTTPS erzeugen
-  setup                  Einrichtungsassistent erneut starten
+  setup                  Einrichtungsassistent erneut starten (danach offene Schritte erledigen)
+  checklist              Einrichtungs-Checkliste anzeigen (Rueckgabewert 0 = alles erledigt)
   notify-test            Testnachricht an den Teams-Kanal senden
   checkmk-localcheck     Status als Checkmk-Local-Check ausgeben (fuer den Agenten)
 
@@ -44,7 +56,8 @@ Optionen:
   --no-master            Master auslassen
   --dry-run              Testmodus: zeigt, was passieren wuerde, aendert nichts
   --force                maintenance auch ausserhalb des Wartungsfensters
-  -h, --help             ausfuehrliche Hilfe (docs/HILFE.md)
+  -h                     diese Kurzhilfe
+  --help                 ausfuehrliche Hilfe (docs/HILFE.md)
   --version              Version anzeigen
 """
 
@@ -130,8 +143,11 @@ def _rollback(repo, pid, snap):
 
 def main(argv):
     args = list(argv)
-    if any(a in ("-h", "--help", "help") for a in args):
+    if any(a in ("--help", "help") for a in args):
         show_help()
+        return 0
+    if "-h" in args:
+        print(USAGE)
         return 0
     if "--version" in args:
         print(f"updatemanager-checkmk {VERSION}")
@@ -153,12 +169,22 @@ def main(argv):
         if cfg is None:
             if cmd in ("menu", "setup") and interactive:
                 cfg = setup.wizard()
+                from .onboarding import finish
+                finish(Ctx(cfg))
+                cfg = config.load() or cfg
+                if cmd == "setup":
+                    return 0
             else:
                 print(red("updatemanager-checkmk ist noch nicht eingerichtet – bitte einmal interaktiv 'updatemanager-checkmk' starten."))
                 return 2
         elif cmd == "setup":
             cfg = setup.wizard(cfg)
+            from .onboarding import finish
+            finish(Ctx(cfg))
             return 0
+        if cmd == "checklist":
+            from .onboarding import print_checklist
+            return 0 if print_checklist(cfg) else 1
 
         if cmd == "tick":
             from .scheduler import tick

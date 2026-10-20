@@ -370,7 +370,8 @@ function noticesList(ov) {
       items.push(["bad", `${s.name}: ${RUNKIND[k] || k} fehlgeschlagen ${ago(e.time)}`, e.msg]);
     if (s.status === "unknown" && s.enabled) items.push(["amber", `${s.name}: noch nicht erfasst`, "Unter Läufe »Systeme erfassen« starten."]);
   }
-  if (ov.timers && ov.timers.state !== "neu")
+  const setupOpen = (ov.setup || []).some(i => !i.ok);
+  if (ov.timers && ov.timers.state !== "neu" && !setupOpen)
     items.unshift(ov.timers.state === "alt"
       ? ["amber", "Zeitplan läuft noch mit den alten Timern – Änderungen an den Uhrzeiten wirken erst nach der Umstellung",
         "Einmalig im Terminal: updatemanager-checkmk → 4 Wartungsfenster & Zeitplan → 2 Zeitplan aktivieren."]
@@ -386,6 +387,25 @@ function noticesList(ov) {
   return h("ul", { class: "list" }, items.map(([k, t, sub]) => h("li", {},
     h("span", { class: `sym ${k}`, text: k === "bad" ? "■" : k === "info" ? "◆" : "▲" }),
     h("div", { class: "grow" }, h("div", { text: t }), sub ? h("div", { class: "small mute", text: sub }) : null))));
+}
+
+function setupPanel(ov) {
+  const items = ov.setup || [];
+  const open = items.filter(i => !i.ok);
+  if (!open.length) return "";
+  const done = items.length - open.length;
+  return h("div", { class: "panel setup-panel" },
+    h("div", { class: "panel-head" },
+      h("h2", { text: `Einrichtung abschließen · ${done} von ${items.length} erledigt` }),
+      h("button", { class: "btn", onclick: () => startJob({ cmd: "check" }) }, icon("i-refresh"), "Erneut prüfen")),
+    h("div", { class: "setup-bar" }, h("span", { class: "setup-fill", "data-pct": String(Math.round(100 * done / items.length)) })),
+    h("ul", { class: "list" }, [...open, { ok: true, text: `${done} Schritt${done === 1 ? "" : "e"} erledigt`, sum: true }].filter(i => !i.sum || done).map(i => h("li", {},
+      h("span", { class: `sym ${i.ok ? "ok" : "bad"}`, text: i.ok ? "✓" : "○" }),
+      h("div", { class: "grow" }, h("div", { text: i.text }),
+        !i.ok && i.fix ? h("div", { class: "small mute", text: `Im Terminal: updatemanager-checkmk → ${i.fix}` }) : null),
+      !i.ok && i.web ? h("button", { class: "btn", onclick: () => startJob({ cmd: i.web }) },
+        i.web === "repo-sync" ? "Repo aktualisieren" : "Verbindung testen") : null))),
+    h("div", { class: "small mute setup-foot", text: "Vorbereiten von Master und Kunden braucht das Admin-Passwort der VM und der Zeitplan sudo – das geht im Terminal: updatemanager-checkmk → e (führt durch alle offenen Schritte)." }));
 }
 
 /* ================================================================ Seite: Uebersicht */
@@ -425,7 +445,9 @@ async function pageDashboard() {
       h("div", { class: "panel" }, h("div", { class: "panel-head" }, h("h2", { text: "Letzte Läufe" }),
         h("a", { href: "#/runs", class: "small", text: "Alle Läufe" })), recentRuns(ov)));
     content.replaceChildren(ov.external_run ? h("div", { class: "banner amber" }, "Gerade läuft ein Vorgang aus dem Zeitplan oder im Terminal.") : "",
-      head, strip, topo, h("div", { class: "stack" }, h("div"), side));
+      head, setupPanel(ov), strip, topo, h("div", { class: "stack" }, h("div"), side));
+    const fill = content.querySelector(".setup-fill");
+    if (fill) fill.style.width = fill.dataset.pct + "%";
   };
   draw(ov);
   pageEvery(20000, async () => { const n = await refreshOverview(); if (n && location.hash.match(/^#?\/?$/)) draw(n); });

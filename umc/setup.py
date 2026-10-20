@@ -125,6 +125,9 @@ def edit_master(cfg, log=None):
 def test_api(cfg):
     from .common import Log
     v, err = CheckmkAPI(cfg["master"], Log()).version()
+    from .common import now, update_state
+    update_state(lambda s: s.update({"api_check": {"time": now().isoformat(timespec="seconds"),
+                                                   "ok": bool(v), "msg": v or str(err)}}))
     if v:
         print(green(f"  REST-API erreichbar – Master laeuft mit Checkmk {v}"))
     else:
@@ -355,21 +358,12 @@ def wizard(cfg=None):
     header("6/6  Kunden (Satelliten)")
     for c in cfg["customers"]:
         print(f"  - {c['name']}  {c['host']}  Site {c['site'] or '-'}  Checkmk-Host {c['checkmk_host'] or '-'}")
+    print(dim("Kunden lassen sich jederzeit spaeter anlegen: Menue 2 -> n."))
     while ask_yes("Kunden hinzufuegen?", not cfg["customers"]):
         edit_customer(cfg)
 
     config.save(cfg)
     print(green(f"\nEinstellungen gespeichert: {config.CONF_FILE}"))
-    if ask_yes("Jetzt den Update-Server einrichten (Pakete, nginx, GPG, benoetigt sudo)?", first):
-        from .common import Log
-        system_setup(cfg, Log("einrichtung"))
-        config.save(cfg)
-    header("Naechste Schritte")
-    print("  1. Master und Kunden vorbereiten  -> Menue 3 bzw. 2 (Vorbereitungs-Skript)")
-    print("  2. Systeme erfassen + Repo synchronisieren -> Menue 6")
-    print("  3. Vorpruefung aller Systeme      -> Menue 7")
-    print("  4. Zeitplan aktivieren            -> Menue 4")
-    print(dim("  Details: updatemanager-checkmk --help"))
     return cfg
 
 
