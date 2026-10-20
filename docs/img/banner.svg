@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1622"/><stop offset="1" stop-color="#16263a"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity=".04"/></pattern>
+  </defs>
+  <rect width="1280" height="320" rx="18" fill="url(#bg)"/>
+  <rect width="1280" height="320" rx="18" fill="url(#grid)"/>
+  <g transform="translate(70,80) scale(4)">
+    <rect width="40" height="40" rx="9" fill="#142030" stroke="#25384f" stroke-width=".4"/>
+    <path d="M20 15 L8.5 30.5 M20 15 L20 33 M20 15 L31.5 30.5" stroke="#4A6382" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <circle cx="8.5" cy="30.5" r="3.4" fill="#46C8A8"/><circle cx="20" cy="33.5" r="3.4" fill="#46C8A8"/><circle cx="31.5" cy="30.5" r="3.4" fill="#46C8A8"/>
+    <path d="M11.5 15.5 L20 6.5 L28.5 15.5" stroke="#F0B24A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <text x="270" y="140" font-size="52" font-weight="700" fill="#e8eef6">updatemanager<tspan fill="#46C8A8">-checkmk</tspan></text>
+  <text x="272" y="186" font-size="22" fill="#a9b7c8">Offline-Updates für Checkmk-Satelliten:</text>
+  <text x="272" y="218" font-size="22" fill="#a9b7c8">Betriebssystem und Checkmk zentral aus dem NOC – nur per SSH.</text>
+  <g font-size="15" font-weight="600">
+    <rect x="272" y="246" width="128" height="32" rx="16" fill="#46C8A8" fill-opacity=".14" stroke="#46C8A8" stroke-opacity=".5"/><text x="336" y="267" fill="#46C8A8" text-anchor="middle">kein Internet</text>
+    <rect x="412" y="246" width="184" height="32" rx="16" fill="#F0B24A" fill-opacity=".14" stroke="#F0B24A" stroke-opacity=".5"/><text x="504" y="267" fill="#F0B24A" text-anchor="middle">SSH-Reverse-Tunnel</text>
+    <rect x="608" y="246" width="140" height="32" rx="16" fill="#7b9cff" fill-opacity=".14" stroke="#7b9cff" stroke-opacity=".5"/><text x="678" y="267" fill="#9db4ff" text-anchor="middle">Weboberfläche</text>
+    <rect x="760" y="246" width="178" height="32" rx="16" fill="#ffffff" fill-opacity=".06" stroke="#ffffff" stroke-opacity=".25"/><text x="849" y="267" fill="#cfd8e3" text-anchor="middle">nur Python-Stdlib</text>
+  </g>
+  <g transform="translate(1010,70)" stroke-linecap="round">
+    <rect x="40" y="0" width="150" height="48" rx="10" fill="#1d3047" stroke="#F0B24A"/>
+    <text x="115" y="30" font-size="15" font-weight="600" fill="#F0B24A" text-anchor="middle">Update-Server</text>
+    <path d="M115 48 V84 M115 66 H30 V100 M115 66 H200 V100" stroke="#4A6382" stroke-width="2.5" fill="none" stroke-dasharray="6 5"/>
+    <g font-size="13" fill="#cfe9e0" text-anchor="middle">
+      <rect x="0" y="100" width="60" height="40" rx="8" fill="#163a33" stroke="#46C8A8"/><text x="30" y="125">VM</text>
+      <rect x="85" y="100" width="60" height="40" rx="8" fill="#163a33" stroke="#46C8A8"/><text x="115" y="125">VM</text>
+      <rect x="170" y="100" width="60" height="40" rx="8" fill="#163a33" stroke="#46C8A8"/><text x="200" y="125">VM</text>
+    </g>
+    <rect x="55" y="170" width="120" height="40" rx="8" fill="#1d3047" stroke="#7b83c9"/>
+    <text x="115" y="195" font-size="13" fill="#c9cff5" text-anchor="middle">Master · zuletzt</text>
+  </g>
+</svg>

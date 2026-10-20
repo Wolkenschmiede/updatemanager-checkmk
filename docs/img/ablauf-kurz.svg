@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="210" viewBox="0 0 1200 210" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7b83c9"/></marker></defs>
+  <rect width="1200" height="210" rx="14" fill="#fafbfe" stroke="#d8dbe6"/>
+  <line x1="60" y1="70" x2="1140" y2="70" stroke="#7b83c9" stroke-width="2" marker-end="url(#a)"/>
+  <g font-size="13" text-anchor="middle">
+    <g transform="translate(110,0)"><circle cx="0" cy="70" r="9" fill="#46C8A8"/><text y="40" font-weight="700" fill="#1d2240">täglich 05:30</text><text y="104" font-weight="600" fill="#1d2240">Repo-Sync</text><text y="124" fill="#555">OS-Spiegel + neue</text><text y="141" fill="#555">Checkmk-Releases</text><text y="158" fill="#555">SHA256 · Snapshot</text></g>
+    <g transform="translate(320,0)"><circle cx="0" cy="70" r="9" fill="#F0B24A"/><text y="40" font-weight="700" fill="#1d2240">Mo 09:00</text><text y="104" font-weight="600" fill="#1d2240">Vorprüfung</text><text y="124" fill="#555">SSH · sudo · Tunnel</text><text y="141" fill="#555">Uhrzeit · Site</text></g>
+    <g transform="translate(530,0)"><circle cx="0" cy="70" r="9" fill="#7b83c9"/><text y="40" font-weight="700" fill="#1d2240">Phase 1</text><text y="104" font-weight="600" fill="#1d2240">OS-Update</text><text y="124" fill="#555">alle Kunden parallel</text><text y="141" fill="#555">Neustart nur wenn nötig</text><text y="158" fill="#555">danach der Master</text></g>
+    <g transform="translate(750,0)"><circle cx="0" cy="70" r="9" fill="#7b83c9"/><text y="40" font-weight="700" fill="#1d2240">Phase 2</text><text y="104" font-weight="600" fill="#1d2240">Checkmk Remote Sites</text><text y="124" fill="#555">alle parallel</text><text y="141" fill="#555">Backup · omd update</text><text y="158" fill="#555">Rollback bei Fehler</text></g>
+    <g transform="translate(950,0)"><circle cx="0" cy="70" r="9" fill="#7b83c9"/><text y="40" font-weight="700" fill="#1d2240">Phase 3</text><text y="104" font-weight="600" fill="#1d2240">Checkmk-Master</text><text y="124" fill="#555">nur wenn alle</text><text y="141" fill="#555">Remote Sites ok</text></g>
+    <g transform="translate(1110,0)"><circle cx="0" cy="70" r="9" fill="#46C8A8"/><text y="40" font-weight="700" fill="#1d2240">Ende</text><text y="104" font-weight="600" fill="#1d2240">Aufräumen</text><text y="124" fill="#555">omd cleanup · Repo</text><text y="141" fill="#555">Bericht · Teams</text></g>
+  </g>
+  <text x="600" y="192" font-size="12" fill="#777" text-anchor="middle">Downtimes werden pro Host automatisch gesetzt und nach dem Update entfernt · neue Schritte nur, wenn noch genug Zeit im Wartungsfenster ist</text>
+</svg>

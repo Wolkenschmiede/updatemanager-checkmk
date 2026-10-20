@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980" font-family="Inter, Helvetica, Arial, sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect width="1400" height="980" fill="#fff"/>
+<rect x="12" y="10" width="1376" height="460" rx="12" fill="#fafbfe" stroke="#d8dbe6"/>
+<text x="34" y="42" font-size="20" font-weight="700" fill="#1d2240">OS-Update</text>
+<text x="157.8" y="42" font-size="12.5" fill="#666">automatisch im Wartungsfenster · alle Kunden gleichzeitig, Master zuletzt</text>
+<rect x="27.0" y="82.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="115" y="98.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Repo-Sync täglich (05:30)</text>
+<text x="115" y="114.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Spiegel aktualisiert,</text>
+<text x="115" y="130.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Snapshot veröffentlicht</text>
+<rect x="247.0" y="82.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="335" y="106.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Wartungsfenster beginnt</text>
+<text x="335" y="122.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">z. B. Montag 09:00</text>
+<rect x="467.0" y="82.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="555" y="98.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Alle Kunden gleichzeitig</text>
+<text x="555" y="114.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">(Anzahl einstellbar,</text>
+<text x="555" y="130.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">0 = alle)</text>
+<path d="M775,68.0 L853.0,110 L775,152.0 L697.0,110 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
+<text x="775" y="106.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Vorprüfung</text>
+<text x="775" y="121.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">ok?</text>
+<path d="M995,68.0 L1073.0,110 L995,152.0 L917.0,110 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
+<text x="995" y="106.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Updates</text>
+<text x="995" y="121.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">verfügbar?</text>
+<rect x="1127.0" y="82.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="1215" y="106.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Fertig,</text>
+<text x="1215" y="122.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Eintrag im Log</text>
+<rect x="687.0" y="194.0" width="176" height="56" rx="7" fill="#fbe9e9" stroke="#c96b6b" stroke-width="1.2"/>
+<text x="775" y="218.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Überspringen,</text>
+<text x="775" y="234.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Eintrag im Bericht</text>
+<path d="M203.0,110 L247.0,110" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M423.0,110 L467.0,110" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M643.0,110 L697.0,110" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M853.0,110 L917.0,110" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="874.4" y="102" width="21.2" height="15" fill="#fff"/>
+<text x="885.0" y="113.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">ja</text>
+<path d="M1073.0,110 L1127.0,110" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="1095.8" y="102" width="34.4" height="15" fill="#fff"/>
+<text x="1113.0" y="113.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">nein</text>
+<path d="M775,152.0 L775,194.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="757.8" y="158.0" width="34.4" height="15" fill="#fff"/>
+<text x="775" y="169.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">nein</text>
+<path d="M995,152.0 L995,262 L115,262 L115,302.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="984.4" y="158.0" width="21.2" height="15" fill="#fff"/>
+<text x="995" y="169.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">ja</text>
+<rect x="27.0" y="302.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="115" y="326.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Downtime im Master</text>
+<text x="115" y="342.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">setzen</text>
+<rect x="247.0" y="302.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="335" y="318.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Updates aus dem Repo</text>
+<text x="335" y="334.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">einspielen</text>
+<text x="335" y="350.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">(durch den SSH-Tunnel)</text>
+<path d="M555,288.0 L633.0,330 L555,372.0 L477.0,330 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
+<text x="555" y="326.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Neustart</text>
+<text x="555" y="341.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">nötig?</text>
+<rect x="467.0" y="400.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="555" y="424.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Neustart, warten</text>
+<text x="555" y="440.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">bis erreichbar</text>
+<rect x="687.0" y="302.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="775" y="326.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Prüfen:</text>
+<text x="775" y="342.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Site läuft</text>
+<rect x="907.0" y="302.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="995" y="326.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Downtime</text>
+<text x="995" y="342.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">entfernen</text>
+<rect x="1127.0" y="302.0" width="176" height="56" rx="7" fill="#fdf0d8" stroke="#d9a441" stroke-width="1.2"/>
+<text x="1215" y="318.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Danach OS-Update Master</text>
+<text x="1215" y="334.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Bericht: Pakete alt → neu,</text>
+<text x="1215" y="350.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Neustart, Kernel · Teams</text>
+<path d="M203.0,330 L247.0,330" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M423.0,330 L477.0,330" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M633.0,330 L687.0,330" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="659.8" y="322" width="34.4" height="15" fill="#fff"/>
+<text x="677.0" y="333.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">nein</text>
+<path d="M555,372.0 L555,400.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="560.4" y="372.0" width="21.2" height="15" fill="#fff"/>
+<text x="571" y="383.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">ja</text>
+<path d="M643.0,428 L775,428 L775,358.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M863.0,330 L907.0,330" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M1083.0,330 L1127.0,330" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M1215,138.0 L1215,302.0" fill="none" stroke="#333" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#a)"/>
+<rect x="12" y="490" width="1376" height="478" rx="12" fill="#fafbfe" stroke="#d8dbe6"/>
+<text x="34" y="522" font-size="20" font-weight="700" fill="#1d2240">Checkmk-Update</text>
+<text x="218.79999999999998" y="522" font-size="12.5" fill="#666">automatisch · alle Remote Sites gleichzeitig, Master zuletzt</text>
+<rect x="27.0" y="582.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="115" y="598.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Neues Checkmk-Release</text>
+<text x="115" y="614.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">erkannt, ins Repo geladen,</text>
+<text x="115" y="630.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">SHA256 geprüft</text>
+<path d="M335,568.0 L413.0,610 L335,652.0 L257.0,610 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
+<text x="335" y="606.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Neue Major-</text>
+<text x="335" y="621.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Version?</text>
+<path d="M555,568.0 L633.0,610 L555,652.0 L477.0,610 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
+<text x="555" y="606.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Regeln</text>
+<text x="555" y="621.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">erfüllt?</text>
+<rect x="467.0" y="694.0" width="176" height="56" rx="7" fill="#fbe9e9" stroke="#c96b6b" stroke-width="1.2"/>
+<text x="555" y="718.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Blockiert</text>
+<text x="555" y="734.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Meldung, manuell planen</text>
+<rect x="687.0" y="582.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="775" y="606.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Wartungsfenster</text>
+<text x="775" y="622.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">(nach dem OS-Update)</text>
+<rect x="907.0" y="582.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="995" y="606.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Alle Remote Sites</text>
+<text x="995" y="622.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">gleichzeitig</text>
+<rect x="1127.0" y="582.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="1215" y="598.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Vorprüfung</text>
+<text x="1215" y="614.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Downtime im Master setzen</text>
+<text x="1215" y="630.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Backup der Site</text>
+<path d="M203.0,610 L257.0,610" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M413.0,610 L477.0,610" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="434.4" y="602" width="21.2" height="15" fill="#fff"/>
+<text x="445.0" y="613.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">ja</text>
+<path d="M633.0,610 L687.0,610" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="662.4" y="602" width="21.2" height="15" fill="#fff"/>
+<text x="673.0" y="613.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">ja</text>
+<path d="M335,568.0 L335,552 L775,552 L775,582.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="514.7" y="544" width="80.6" height="15" fill="#fff"/>
+<text x="555.0" y="555.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">nein, Patch</text>
+<path d="M555,652.0 L555,694.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="537.8" y="658.0" width="34.4" height="15" fill="#fff"/>
+<text x="555" y="669.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">nein</text>
+<path d="M863.0,610 L907.0,610" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M1083.0,610 L1127.0,610" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M1215,638.0 L1215,760 L115,760 L115,797.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="27.0" y="797.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="115" y="821.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Neues Checkmk-Paket</text>
+<text x="115" y="837.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">aus dem Repo installieren</text>
+<rect x="247.0" y="797.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="335" y="813.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Site umstellen</text>
+<text x="335" y="829.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">stoppen · omd update ·</text>
+<text x="335" y="845.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">starten</text>
+<path d="M555,783.0 L633.0,825 L555,867.0 L477.0,825 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
+<text x="555" y="821.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Erfolg-</text>
+<text x="555" y="836.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">reich?</text>
+<rect x="467.0" y="895.0" width="176" height="56" rx="7" fill="#fbe9e9" stroke="#c96b6b" stroke-width="1.2"/>
+<text x="555" y="911.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Unverändert: starten,</text>
+<text x="555" y="927.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">sonst Rollback aus Backup</text>
+<text x="555" y="943.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Kunde im Bericht markieren</text>
+<rect x="687.0" y="797.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="775" y="821.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">omd cleanup</text>
+<text x="775" y="837.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Downtime entfernen</text>
+<path d="M995,783.0 L1073.0,825 L995,867.0 L917.0,825 Z" fill="#fff" stroke="#7b83c9" stroke-width="1.4"/>
+<text x="995" y="821.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">Alle Remote Sites</text>
+<text x="995" y="836.7" font-size="12" font-weight="600" fill="#1d2240" text-anchor="middle">erfolgreich?</text>
+<rect x="1127.0" y="797.0" width="176" height="56" rx="7" fill="#eef0fb" stroke="#7b83c9" stroke-width="1.2"/>
+<text x="1215" y="821.6" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Master aktualisieren</text>
+<text x="1215" y="837.2" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">(gleicher Ablauf)</text>
+<rect x="907.0" y="895.0" width="176" height="56" rx="7" fill="#fbe9e9" stroke="#c96b6b" stroke-width="1.2"/>
+<text x="995" y="911.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Master bleibt auf</text>
+<text x="995" y="927.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">alter Version</text>
+<text x="995" y="943.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Bericht, manuell klären</text>
+<rect x="1127.0" y="895.0" width="176" height="56" rx="7" fill="#fdf0d8" stroke="#d9a441" stroke-width="1.2"/>
+<text x="1215" y="911.8" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Alte Checkmk-Pakete im</text>
+<text x="1215" y="927.4" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Repo aufräumen</text>
+<text x="1215" y="943.0" font-size="12.5" font-weight="400" fill="#1d2240" text-anchor="middle">Bericht · Teams</text>
+<path d="M203.0,825 L247.0,825" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M423.0,825 L477.0,825" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M633.0,825 L687.0,825" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="662.4" y="817" width="21.2" height="15" fill="#fff"/>
+<text x="673.0" y="828.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">ja</text>
+<path d="M555,867.0 L555,895.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="557.8" y="867.0" width="34.4" height="15" fill="#fff"/>
+<text x="575" y="878.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">nein</text>
+<path d="M643.0,923 L825,923 L825,885 L954,885 L954,846" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M863.0,825 L917.0,825" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M1073.0,825 L1127.0,825" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="1102.4" y="817" width="21.2" height="15" fill="#fff"/>
+<text x="1113.0" y="828.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">ja</text>
+<path d="M995,867.0 L995,895.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<rect x="997.8" y="867.0" width="34.4" height="15" fill="#fff"/>
+<text x="1015" y="878.5" font-size="11" fill="#555" text-anchor="middle" font-style="italic">nein</text>
+<path d="M1215,853.0 L1215,895.0" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+<path d="M1083.0,923 L1127.0,923" fill="none" stroke="#333" stroke-width="1.3"  marker-end="url(#a)"/>
+</svg>

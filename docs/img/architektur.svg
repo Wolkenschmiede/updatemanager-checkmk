@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" font-family="Inter, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5aa77c"/></marker>
+    <style>
+      .box{fill:#fff;stroke:#9aa0b0;stroke-width:1;rx:6}
+      .t{font-size:12px;font-weight:600;fill:#1d2240;text-anchor:middle}
+      .s{font-size:9.5px;fill:#555;text-anchor:middle}
+      .h{font-size:11px;font-weight:600}
+      .ln{fill:none;stroke:#333;stroke-width:1.1}
+      .lbl{font-size:9.5px;fill:#333}
+    </style>
+  </defs>
+  <rect width="1000" height="600" fill="#fff"/>
+
+  <!-- Internet -->
+  <rect class="box" x="60" y="20" width="170" height="46"/><text class="t" x="145" y="40">OS-Quellen</text><text class="s" x="145" y="55">Ubuntu/Debian · RHEL · SUSE</text>
+  <rect class="box" x="250" y="20" width="170" height="46"/><text class="t" x="335" y="40">Checkmk-Downloadportal</text><text class="s" x="335" y="55">Internet · neue Releases</text>
+  <rect class="box" x="660" y="20" width="170" height="46"/><text class="t" x="745" y="40">Microsoft Teams</text><text class="s" x="745" y="55">Internet · Workflows-Webhook</text>
+
+  <!-- NOC -->
+  <rect x="20" y="95" width="625" height="440" rx="10" fill="#eef0fb" stroke="#7b83c9"/>
+  <text class="h" x="34" y="112" fill="#4b52a0">NOC</text>
+  <rect x="38" y="122" width="590" height="300" rx="8" fill="none" stroke="#7b83c9" stroke-dasharray="5 4"/>
+  <text x="50" y="138" font-size="10" fill="#4b52a0">Update-Server · eine Linux-VM (Repo + Steuerung)</text>
+
+  <rect class="box" x="60" y="150" width="170" height="46" stroke="#7b83c9"/><text class="t" x="145" y="170">Spiegel</text><text class="s" x="145" y="185">OS-Quellen · aptly / dnf-reposync</text>
+  <rect class="box" x="250" y="150" width="170" height="46" stroke="#7b83c9"/><text class="t" x="335" y="170">Checkmk-Repo</text><text class="s" x="335" y="185">Pakete pro OS · SHA256 geprüft</text>
+  <rect class="box" x="60" y="225" width="360" height="40" stroke="#7b83c9"/><text class="t" x="240" y="242">Snapshot</text><text class="s" x="240" y="256">datiert · letzte 8 als Rückfallebene</text>
+  <rect x="60" y="295" width="360" height="40" rx="6" fill="#fdf0d8" stroke="#d9a441"/><text class="t" x="240" y="312">Veröffentlicht · automatisch</text><text class="s" x="240" y="326">GPG-signiert · nginx</text>
+  <rect class="box" x="60" y="360" width="360" height="40" stroke="#7b83c9"/><text class="t" x="240" y="377">Aufräumen</text><text class="s" x="240" y="391">Checkmk-Pakete löschen, sobald keine Site sie braucht</text>
+
+  <rect class="box" x="450" y="150" width="160" height="40" stroke="#7b83c9"/><text class="t" x="530" y="167">Zeitplan</text><text class="s" x="530" y="181">Minuten-Timer · tick</text>
+  <rect class="box" x="450" y="205" width="160" height="40" stroke="#7b83c9"/><text class="t" x="530" y="222">CLI-Menü + Weboberfläche</text><text class="s" x="530" y="236">Web nur lokal · per SSH-Tunnel</text>
+  <rect x="450" y="270" width="160" height="70" rx="6" fill="#fdf0d8" stroke="#d9a441"/>
+  <text class="t" x="530" y="292">Steuerung</text><text class="s" x="530" y="307">Kundenliste · Vorprüfung</text><text class="s" x="530" y="320">Logs · Laufhistorie</text><text class="s" x="530" y="333">Berichte</text>
+
+  <rect class="box" x="60" y="460" width="360" height="50" stroke="#7b83c9"/><text class="t" x="240" y="480">Checkmk-Master</text><text class="s" x="240" y="496">SSH: OS + Checkmk · wird zuletzt aktualisiert · REST-API: Downtimes</text>
+
+  <!-- VPN -->
+  <rect x="660" y="95" width="26" height="440" rx="4" fill="none" stroke="#aaa" stroke-dasharray="3 3"/>
+  <text x="673" y="90" font-size="9" fill="#777" text-anchor="middle">VPN</text>
+
+  <!-- Kunden -->
+  <rect x="702" y="95" width="280" height="440" rx="10" fill="#e9f6ef" stroke="#5aa77c"/>
+  <text class="h" x="716" y="112" fill="#2f7a50">Kunden</text>
+  <rect class="box" x="722" y="140" width="240" height="70" stroke="#5aa77c"/><text class="t" x="842" y="162">Kunde A · Satellit</text><text class="s" x="842" y="178">Linux · Remote Site · Agent</text><text class="s" x="842" y="192">Paketquelle: localhost:3142 (Tunnel)</text>
+  <rect class="box" x="722" y="270" width="240" height="56" stroke="#5aa77c"/><text class="t" x="842" y="292">Kunde B · Satellit</text><text class="s" x="842" y="308">Linux · Remote Site · Agent</text>
+  <rect class="box" x="722" y="395" width="240" height="56" stroke="#5aa77c"/><text class="t" x="842" y="417">Kunde C · Satellit</text><text class="s" x="842" y="433">Linux · Remote Site · Agent</text>
+  <text x="842" y="490" font-size="10" fill="#2f7a50" text-anchor="middle">alle Kunden gleichzeitig (einstellbar)</text>
+
+  <!-- Pfeile -->
+  <path class="ln" d="M145,66 V150" marker-end="url(#a)"/>
+  <path class="ln" d="M335,66 V150" marker-end="url(#a)"/>
+  <path class="ln" d="M145,196 V225" marker-end="url(#a)"/>
+  <path class="ln" d="M335,196 V225" marker-end="url(#a)"/>
+  <path class="ln" d="M240,265 V295" marker-end="url(#a)"/>
+  <path class="ln" d="M530,190 V205" marker-end="url(#a)"/>
+  <path class="ln" d="M530,245 V270" marker-end="url(#a)"/>
+  <!-- Steuerung -> Teams -->
+  <path class="ln" d="M610,280 H636 V43 H660" marker-end="url(#a)"/>
+  <text class="lbl" x="598" y="88">HTTPS</text>
+  <!-- Steuerung -> Kunden -->
+  <path class="ln" d="M610,295 H646 V175 H722" marker-end="url(#a)"/>
+  <path class="ln" d="M610,305 H722" marker-end="url(#a)"/>
+  <path class="ln" d="M610,315 H646 V423 H722" marker-end="url(#a)"/>
+  <text class="lbl" x="694" y="250" transform="rotate(-90 694 250)" text-anchor="middle">SSH + Reverse-Tunnel</text>
+  <!-- Steuerung -> Master -->
+  <path class="ln" d="M530,340 V485 H420" marker-end="url(#a)"/>
+  <text class="lbl" x="440" y="478">SSH · REST-API</text>
+  <!-- Tunnel: Paketzugriffe -->
+  <path d="M450,325 H420" fill="none" stroke="#333" stroke-dasharray="4 3" marker-end="url(#a)"/>
+  <!-- NTP optional -->
+  <path d="M722,440 H700 V520 H600 V422" fill="none" stroke="#5aa77c" stroke-dasharray="2 3" marker-end="url(#g)"/>
+  <text x="608" y="514" font-size="9" fill="#2f7a50">NTP (optional)</text>
+
+  <!-- Legende -->
+  <rect x="20" y="556" width="10" height="10" fill="#eef0fb" stroke="#7b83c9"/><text x="35" y="565" font-size="9.5" fill="#444">NOC</text>
+  <rect x="70" y="556" width="10" height="10" fill="#e9f6ef" stroke="#5aa77c"/><text x="85" y="565" font-size="9.5" fill="#444">Kunde</text>
+  <rect x="125" y="556" width="10" height="10" fill="#fdf0d8" stroke="#d9a441"/><text x="140" y="565" font-size="9.5" fill="#444">Kernabläufe</text>
+  <text x="210" y="565" font-size="9.5" fill="#444">Pfeil = wer die Verbindung aufbaut · gestrichelt = Paketzugriffe der Satelliten durch den SSH-Tunnel zum Repo · grün gepunktet = optionale Zeitquelle</text>
+</svg>

@@ -145,7 +145,7 @@ Hell und dunkel, mit eigenen Benutzern.
 **Installation**
 
 ```bash
-git clone https://github.com/<dein-github-name>/updatemanager-checkmk.git
+git clone https://github.com/Wolkenschmiede/updatemanager-checkmk.git
 cd updatemanager-checkmk
 ./install.sh                     # installiert nach /opt/updatemanager-checkmk
 updatemanager-checkmk            # erster Start: Einrichtungsassistent, danach das Menü
